@@ -54,15 +54,17 @@ class Report
      * @param string      $reportId    The report ID of the report
      * @param string      $groupId     The group ID of the report
      * @param null|string $accessLevel The access level used for the report
+     * @param array       $identities  An array indicated the identities of the user
      *
      * @return \Tngnt\PBI\Response
      */
-    public function getReportEmbedToken($reportId, $groupId, $accessLevel = 'view')
+    public function getReportEmbedToken($reportId, $groupId, $accessLevel = 'view', array $identities = [])
     {
         $url = sprintf(self::GROUP_REPORT_EMBED_URL, $groupId, $reportId);
 
         $body = [
             'accessLevel' => $accessLevel,
+            'identities' => $identities,
         ];
 
         $response = $this->client->request(Client::METHOD_POST, $url, $body);
